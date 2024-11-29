@@ -46,6 +46,47 @@ class JoblyApi {
     return res.company;
   }
 
+  static async getAllJobs() {
+    let res = await this.request(`jobs`);
+    return res.jobs
+  }
+
+  
+  static async loginUser(data) {
+    const res = await this.request(`auth/token`, data, "post")
+    JoblyApi.token = res.token
+    return res.token
+  }
+
+  static async registerUser(data) {
+    const res = await this.request(`auth/register`, data, "post")
+    JoblyApi.token = res.token
+    return res.token
+  }
+
+  static async updateUser(data) {
+    const { username, ...updatedData } = data; // Exclude username from the body
+    const res = await this.request(`users/${username}`, updatedData, "patch");
+    return res.user;
+}
+
+static async applyToJob({username, job}) {
+  //it worked for a second without headers and im not sure why i had to figure this out now.
+  const headers = { Authorization: `Bearer ${JoblyApi.token}` }; 
+  const res = await this.request(`users/${username}/jobs/${job.id}`, { headers }, "post"); 
+  const user = await this.request(`users/${username}`)
+  return {res, user};
+}
+
+
+
+  static async getUser(username) {
+    const res = await this.request(`users/${username}`);
+    return res.user;
+  }
+  
+
+
   // obviously, you'll add a lot here ...
 }
 

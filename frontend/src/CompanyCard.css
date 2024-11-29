@@ -1,9 +1,9 @@
-.companies-container {
+.Company-card-container {
   display: flex;
   flex-direction: column;
 }
 
-.company-card {
+.Company-card {
   background-color: lightblue;
   padding: 3px;
   margin: 8px;

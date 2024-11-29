@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { JoblyApi } from "./api/api.js";
-import "./CompanyList.css";
+import CompanyCard from "./CompanyCard.js";
 
 function CompanyList() {
   const [companies, setCompanies] = useState(null);
@@ -20,14 +20,9 @@ function CompanyList() {
   if (!companies) return <h1>Loading...</h1>;
   return (
     <>
-      <div className="companies-container">
+      <div className="Company-list-container">
         {companies.map((company) => {
-          return (
-            <div className="company-card" key={company.handle}>
-              <h3>{company.name}</h3>
-              <p>{company.description}</p>
-            </div>
-          );
+          return <CompanyCard key={company.handle} company={company}/>
         })}
       </div>
     </>

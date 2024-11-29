@@ -1,0 +1,26 @@
+nav {
+    background-color: grey;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 15px;
+    position: relative;
+    right: 15px;
+}
+
+a, .navbar-links Link {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.jobly-home {
+    display: flex;
+}
+
