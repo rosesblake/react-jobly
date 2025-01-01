@@ -11,21 +11,21 @@ function CompanyList() {
         const companyData = await JoblyApi.getAllCompanies();
         setCompanies(companyData);
       } catch (e) {
-        console.error("error fetching companies:", e);
+        console.error("Error fetching companies:", e);
       }
     }
     fetchCompanies();
   }, []);
-  // Display a loading message while the data is being fetched
+
   if (!companies) return <h1>Loading...</h1>;
+
   return (
-    <>
-      <div className="Company-list-container">
-        {companies.map((company) => {
-          return <CompanyCard key={company.handle} company={company}/>
-        })}
-      </div>
-    </>
+    <div className="Company-list-container">
+      {companies.map((company) => {
+        return <CompanyCard key={company.handle} company={company} />;
+      })}
+    </div>
   );
 }
+
 export { CompanyList };

@@ -1,0 +1,79 @@
+/* Container for the company list */
+.Company-list-container,
+.Company-detail,
+.Job-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+/* Styling for individual company card */
+.Company-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.Company-card-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Styling for company names and descriptions */
+.Company-card h2 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.Company-card p {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Button styling */
+.Company-card button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.Company-card button:hover {
+  background-color: #0056b3;
+}
+
+/* Styling for job cards (when available) */
+.Company-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Company-card li {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.Company-card li span {
+  font-weight: bold;
+}

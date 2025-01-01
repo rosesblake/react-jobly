@@ -1,25 +1,28 @@
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "./UserContext";
+import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
-function Home({ token, currUser }) {
+function Home() {
+  const { currUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If no currUser, redirect to login
+    if (!currUser) {
+      navigate("/login");
+    }
+  }, [currUser, navigate]); // Run when currUser changes
+
+  // If there's no user, don't render the component yet
+  if (!currUser) {
+    return null; // Or a loading spinner, etc.
+  }
+
   return (
-    <div>
-      <h1>Jobly</h1>
-      <p>All the jobs in one, convenient place.</p>
-
-      {!token ? (
-        <div>
-          <Link to={"/login"}>
-            <button>Log In</button>
-          </Link>
-          <Link to={"/signup"}>
-            <button>Sign Up</button>
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <p>Welcome Back! {currUser.username}</p>
-        </div>
-      )}
+    <div className="home-container">
+      <h1 className="welcome-message">Welcome, {currUser.username}</h1>
+      {/* Other content */}
     </div>
   );
 }
