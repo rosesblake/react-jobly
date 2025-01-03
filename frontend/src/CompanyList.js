@@ -20,11 +20,13 @@ function CompanyList() {
   if (!companies) return <h1>Loading...</h1>;
 
   return (
-    <div className="Company-list-container">
-      {companies.map((company) => {
-        return <CompanyCard key={company.handle} company={company} />;
-      })}
-    </div>
+    <>
+      <div className="Company-list-container">
+        {companies.map((company) => {
+          return <CompanyCard key={company.handle} company={company} />;
+        })}
+      </div>
+    </>
   );
 }
 
