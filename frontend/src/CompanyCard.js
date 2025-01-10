@@ -1,30 +1,39 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import "./CompanyList.css";
 import { Link } from "react-router-dom";
 import { JoblyApi } from "./api/api";
 import { UserContext } from "./UserContext"; // Import UserContext
 
 function CompanyCard({ job, company }) {
-  const { userApps } = useContext(UserContext); // Get userApps from context
+  const { userApps, setUserApps } = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("user"));
-  const [applied, setApplied] = useState(false);
 
   useEffect(() => {
-    if (userApps && job) {
-      setApplied(userApps.some((app) => app === job.id));
-    }
-  }, [userApps, job]);
+    const fetchUserApplications = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        try {
+          const userData = await JoblyApi.getUser(user.username);
+          setUserApps(userData.applications);
+        } catch (err) {
+          console.error("Failed to fetch user applications:", err);
+        }
+      }
+    };
+    fetchUserApplications();
+  }, [setUserApps]);
 
   const handleJobApp = async () => {
     try {
       const username = user.username;
       await JoblyApi.applyToJob({ username, job });
-      setApplied(true);
+      let updatedUser = await JoblyApi.getUser(username);
+      setUserApps(updatedUser.applications);
     } catch (err) {
       console.error("Failed to apply to job:", err);
     }
   };
-
+  // console.log(userApps);
   return (
     <div className="Company-card-container">
       {job ? (
@@ -33,7 +42,7 @@ function CompanyCard({ job, company }) {
           <li>Salary: {job.salary || "N/A"}</li>
           <li>Equity: {job.equity || "N/A"}</li>
           <button onClick={handleJobApp}>
-            {applied ? "Applied" : "Apply"}
+            {userApps.includes(job.id) ? "Applied" : "Apply"}
           </button>
         </ul>
       ) : (
