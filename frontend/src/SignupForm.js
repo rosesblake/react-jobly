@@ -58,8 +58,9 @@ function SignupForm({ profileEdit }) {
         const token = await JoblyApi.registerUser(formData);
         setToken(token);
         localStorage.setItem("token", token);
-        setCurrUser(formData);
-        localStorage.setItem("user", JSON.stringify(formData));
+        const newUser = { ...formData, applications: [] };
+        setCurrUser(newUser);
+        localStorage.setItem("user", JSON.stringify(newUser));
       } else {
         // Update user profile
         const updatedUser = await JoblyApi.updateUser(formData);

@@ -21,7 +21,14 @@ function App() {
         try {
           const uApps = await JoblyApi.getUser(currUser.username);
           const apps = uApps.applications;
-          setUserApps(apps);
+          console.log(apps);
+          // Update state only if apps are different
+          setUserApps((prevApps) => {
+            if (JSON.stringify(prevApps) !== JSON.stringify(apps)) {
+              return apps;
+            }
+            return prevApps;
+          });
         } catch (error) {
           console.error("Error fetching user applications", error);
           if (error.response && error.response.status === 401) {
@@ -31,6 +38,7 @@ function App() {
           }
         }
       };
+
       fetchUserApps();
     }
   }, [currUser, token, setToken, setCurrUser]);

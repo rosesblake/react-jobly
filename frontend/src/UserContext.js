@@ -11,7 +11,6 @@ export function UserProvider({ children }) {
   // Manage token and user data in localStorage and API calls
   useEffect(() => {
     JoblyApi.token = token; // Ensure token is set for API calls
-
     // Persist token in localStorage or remove it when null
     if (token) {
       localStorage.setItem("token", token);

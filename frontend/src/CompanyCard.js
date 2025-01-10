@@ -5,30 +5,19 @@ import { JoblyApi } from "./api/api";
 import { UserContext } from "./UserContext"; // Import UserContext
 
 function CompanyCard({ job, company }) {
+  const { setCurrUser } = useContext(UserContext);
   const { userApps, setUserApps } = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("user"));
-
-  useEffect(() => {
-    const fetchUserApplications = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        try {
-          const userData = await JoblyApi.getUser(user.username);
-          setUserApps(userData.applications);
-        } catch (err) {
-          console.error("Failed to fetch user applications:", err);
-        }
-      }
-    };
-    fetchUserApplications();
-  }, [setUserApps]);
 
   const handleJobApp = async () => {
     try {
       const username = user.username;
       await JoblyApi.applyToJob({ username, job });
       let updatedUser = await JoblyApi.getUser(username);
+      console.log(updatedUser);
       setUserApps(updatedUser.applications);
+      setCurrUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
     } catch (err) {
       console.error("Failed to apply to job:", err);
     }
