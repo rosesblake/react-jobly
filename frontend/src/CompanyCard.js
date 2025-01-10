@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import "./CompanyList.css";
 import { Link } from "react-router-dom";
 import { JoblyApi } from "./api/api";
